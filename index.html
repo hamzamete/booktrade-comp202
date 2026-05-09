@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Folyo — Book Market</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============================================================
+     AUTH SCREEN
+     ============================================================ -->
+<div id="auth-screen">
+  <div class="auth-deco">F</div>
+  <div class="auth-box">
+    <div class="auth-logo">Folyo<span>.</span></div>
+    <div class="auth-tagline">Book Market</div>
+
+    <div class="tab-row">
+      <button class="tab-btn active" onclick="switchTab('login')">Sign In</button>
+      <button class="tab-btn"        onclick="switchTab('register')">Register</button>
+    </div>
+
+    <!-- Login Form -->
+    <div id="login-form" class="form-section active">
+      <div class="field-group">
+        <label class="field-label">Username</label>
+        <input class="field-input" id="login-username" type="text" placeholder="your username">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Password</label>
+        <input class="field-input" id="login-password" type="password" placeholder="••••••••">
+      </div>
+      <button class="auth-btn" onclick="doLogin()">Sign In</button>
+    </div>
+
+    <!-- Register Form -->
+    <div id="register-form" class="form-section">
+      <div class="field-group">
+        <label class="field-label">Username</label>
+        <input class="field-input" id="reg-username" type="text" placeholder="choose a username">
+      </div>
+      <div class="field-group">
+        <label class="field-label">E-mail</label>
+        <input class="field-input" id="reg-email" type="email" placeholder="example@email.com">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Password</label>
+        <input class="field-input" id="reg-password" type="password" placeholder="••••••••">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Account Type</label>
+        <div class="user-type-row">
+          <button class="type-card selected" id="type-buyer"  onclick="selectType('buyer')">
+            <span class="type-icon">📚</span>
+            <span class="type-label">Buyer</span>
+            <div class="type-desc">Buy books</div>
+          </button>
+          <button class="type-card"          id="type-seller" onclick="selectType('seller')">
+            <span class="type-icon">🏪</span>
+            <span class="type-label">Seller</span>
+            <div class="type-desc">Sell books</div>
+          </button>
+        </div>
+      </div>
+      <button class="auth-btn" onclick="doRegister()">Create Account</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     APP
+     ============================================================ -->
+<div id="app">
+  <div class="app-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">Folyo<span>.</span></div>
+      <div class="sidebar-tagline">Book Market</div>
+
+      <div class="user-block">
+        <div class="user-name" id="sidebar-username">—</div>
+        <div class="user-role" id="sidebar-role">Buyer</div>
+      </div>
+
+      <div class="nav-section-label">Navigate</div>
+      <button class="nav-item active" id="nav-home"      onclick="showScreen('home')">      <span class="nav-icon">🏠</span> Home</button>
+      <button class="nav-item"        id="nav-search"    onclick="showScreen('search')">    <span class="nav-icon">🔍</span> Search Books</button>
+      <button class="nav-item"        id="nav-purchased" onclick="showScreen('purchased')"> <span class="nav-icon">📦</span> My Purchases</button>
+      <!-- Seller only -->
+      <button class="nav-item seller-only" id="nav-addbook" onclick="showScreen('addbook')"><span class="nav-icon">➕</span> Add Book</button>
+      <button class="nav-item"        id="nav-password"  onclick="showScreen('password')">  <span class="nav-icon">🔑</span> Update Password</button>
+
+      <div class="sidebar-footer">
+        <button class="logout-btn" onclick="doLogout()">↩ Log Out</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Home -->
+      <div id="screen-home" class="screen active">
+        <div class="content-header">
+          <div>
+            <div class="page-title">Featured Books</div>
+            <div class="page-subtitle">Click on a book to see details and purchase options</div>
+          </div>
+        </div>
+
+        <!-- Recommended Section -->
+        <div class="section-label">⭐ Recommended for You</div>
+        <div class="books-grid" id="recommended-grid"></div>
+
+        <!-- Best Sellers Section -->
+        <div class="section-label" style="margin-top:36px">🔥 Best Sellers</div>
+        <div class="books-grid" id="bestseller-grid"></div>
+
+        <!-- All Books -->
+        <div class="section-label" style="margin-top:36px">📚 All Books</div>
+        <div class="books-grid" id="home-books-grid"></div>
+      </div>
+
+      <!-- Search -->
+      <div id="screen-search" class="screen">
+        <div class="content-header">
+          <div>
+            <div class="page-title">Search Books</div>
+            <div class="page-subtitle">Filter by author, genre or price</div>
+          </div>
+        </div>
+        <div class="search-filters">
+          <div class="filters-grid">
+            <div>
+              <label class="filter-label">Author</label>
+              <select class="search-select" id="search-author" onchange="doSearch()">
+                <option value="">All Authors</option>
+              </select>
+            </div>
+            <div>
+              <label class="filter-label">Genre</label>
+              <select class="search-select" id="search-genre" onchange="doSearch()">
+                <option value="">All Genres</option>
+                <option>Fiction</option>
+                <option>Sci-Fi</option>
+                <option>History</option>
+                <option>Philosophy</option>
+                <option>Poetry</option>
+                <option>Children</option>
+                <option>Mystery</option>
+              </select>
+            </div>
+          </div>
+          <div class="filters-grid">
+            <div>
+              <label class="filter-label">Price Range (₺)</label>
+              <div class="price-range-row">
+                <input class="price-input" id="search-min-price" type="number" placeholder="Min" min="0" oninput="doSearch()">
+                <span class="price-sep">—</span>
+                <input class="price-input" id="search-max-price" type="number" placeholder="Max" min="0" oninput="doSearch()">
+              </div>
+            </div>
+            <div>
+              <label class="filter-label">Sort By Price</label>
+              <select class="search-select" id="search-sort" onchange="doSearch()">
+                <option value="">Default</option>
+                <option value="asc">Price: Low to High ↑</option>
+                <option value="desc">Price: High to Low ↓</option>
+              </select>
+            </div>
+          </div>
+          <button class="search-btn" onclick="doSearch()">Filter</button>
+        </div>
+        <div class="results-count" id="results-count"></div>
+        <div class="books-grid" id="search-books-grid"></div>
+      </div>
+
+      <!-- My Purchases -->
+      <div id="screen-purchased" class="screen">
+        <div class="content-header">
+          <div>
+            <div class="page-title">My Purchases</div>
+            <div class="page-subtitle">Your Library</div>
+          </div>
+        </div>
+        <div id="purchased-list-wrap"></div>
+      </div>
+
+      <!-- Add Book (Seller only) -->
+      <div id="screen-addbook" class="screen">
+        <div class="content-header">
+          <div>
+            <div class="page-title">Add a Book</div>
+            <div class="page-subtitle">List a new book for sale</div>
+          </div>
+        </div>
+        <div class="settings-card" style="max-width:560px">
+          <h3>Book Details</h3>
+          <div class="filters-grid">
+            <div class="field-group">
+              <label class="field-label">Title *</label>
+              <input class="field-input" id="add-title" type="text" placeholder="Book title">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Author *</label>
+              <input class="field-input" id="add-author" type="text" placeholder="Author name">
+            </div>
+          </div>
+          <div class="filters-grid">
+            <div class="field-group">
+              <label class="field-label">Genre *</label>
+              <select class="search-select" id="add-genre" style="background:var(--cream)">
+                <option>Fiction</option>
+                <option>Sci-Fi</option>
+                <option>History</option>
+                <option>Philosophy</option>
+                <option>Poetry</option>
+                <option>Children</option>
+                <option>Mystery</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Price (₺) *</label>
+              <input class="field-input" id="add-price" type="number" placeholder="e.g. 120" min="1">
+            </div>
+          </div>
+          <div class="filters-grid">
+            <div class="field-group">
+              <label class="field-label">Number of Pages</label>
+              <input class="field-input" id="add-pages" type="number" placeholder="e.g. 320" min="1">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Publication Year</label>
+              <input class="field-input" id="add-year" type="number" placeholder="e.g. 2023" min="1000" max="2099">
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Stock Quantity</label>
+            <input class="field-input" id="add-stock" type="number" placeholder="e.g. 10" min="1">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Description</label>
+            <textarea class="field-input" id="add-desc" rows="3" placeholder="Short description of the book..." style="resize:vertical"></textarea>
+          </div>
+          <button class="save-btn" onclick="addBook()">📚 List Book for Sale</button>
+        </div>
+      </div>
+
+      <!-- Update Password -->
+      <div id="screen-password" class="screen">
+        <div class="content-header">
+          <div>
+            <div class="page-title">Update Password</div>
+            <div class="page-subtitle">Account security</div>
+          </div>
+        </div>
+        <div class="settings-card">
+          <h3>Set New Password</h3>
+          <div class="field-group">
+            <label class="field-label">Current Password</label>
+            <input class="field-input" id="cur-pass" type="password" placeholder="••••••••">
+          </div>
+          <div class="field-group">
+            <label class="field-label">New Password</label>
+            <input class="field-input" id="new-pass" type="password" placeholder="••••••••">
+          </div>
+          <div class="field-group">
+            <label class="field-label">New Password (Confirm)</label>
+            <input class="field-input" id="new-pass2" type="password" placeholder="••••••••">
+          </div>
+          <button class="save-btn" onclick="updatePassword()">Update Password</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ============================================================
+     BOOK DETAIL MODAL
+     ============================================================ -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOnBg(event)">
+  <div class="modal">
+    <div class="modal-body">
+      <div class="modal-cover" id="modal-cover">
+        <span class="modal-cover-emoji" id="modal-cover-emoji"></span>
+        <div class="modal-cover-text">
+          <div class="modal-cover-title"  id="modal-cover-title"></div>
+          <div class="modal-cover-author" id="modal-cover-author"></div>
+        </div>
+      </div>
+      <div class="modal-info">
+        <div class="modal-genre-tag" id="modal-genre"></div>
+        <div class="modal-title"      id="modal-title"></div>
+        <div class="modal-author-line" id="modal-author"></div>
+        <div class="modal-stats">
+          <div><div class="modal-stat-value" id="modal-pages"></div><div class="modal-stat-label">Pages</div></div>
+          <div><div class="modal-stat-value" id="modal-year"></div> <div class="modal-stat-label">Published</div></div>
+          <div><div class="modal-stat-value" id="modal-stock"></div><div class="modal-stat-label">In Stock</div></div>
+        </div>
+        <div class="modal-desc" id="modal-desc"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="modal-price-big" id="modal-price"></div>
+      <button class="modal-close-btn"                            onclick="closeModal()">Close</button>
+      <button class="modal-buy-btn" id="modal-buy-btn"           onclick="buyFromModal()">Buy Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
