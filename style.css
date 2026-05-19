@@ -996,3 +996,134 @@ textarea.field-input {
   height: auto;
   line-height: 1.6;
 }
+
+/* ============================================================
+   LANGUAGE TOGGLE  (EN / TR  with active circle)
+   ============================================================ */
+
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  background: rgba(245, 240, 232, 0.05);
+  border: 1px solid rgba(245, 240, 232, 0.12);
+  border-radius: 999px;
+  padding: 3px 4px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: border-color 0.25s;
+}
+
+.lang-toggle:hover {
+  border-color: rgba(200, 169, 110, 0.45);
+}
+
+.lang-opt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(245, 240, 232, 0.32);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  line-height: 1;
+}
+
+.lang-opt.active {
+  background: var(--warm);
+  color: var(--ink);
+  box-shadow: 0 2px 8px rgba(200, 169, 110, 0.35);
+}
+
+.lang-sep {
+  font-size: 0.6rem;
+  color: rgba(245, 240, 232, 0.18);
+  padding: 0 1px;
+  user-select: none;
+  line-height: 1;
+}
+
+.auth-lang-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+}
+
+.sidebar-lang-btn {
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+/* ============================================================
+   COVER IMAGE UPLOAD
+   ============================================================ */
+
+.cover-upload-area {
+  border: 1.5px dashed rgba(200, 169, 110, 0.5);
+  border-radius: 2px;
+  padding: 24px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  background: var(--cream);
+  min-height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cover-upload-area:hover {
+  background: rgba(200, 169, 110, 0.08);
+  border-color: var(--accent);
+}
+
+#cover-upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.cover-upload-icon {
+  font-size: 2rem;
+  opacity: 0.4;
+}
+
+.cover-upload-hint {
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+#cover-preview-img {
+  max-height: 220px;
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 1px;
+}
+
+/* ============================================================
+   BOOK COVER — REAL PHOTO
+   ============================================================ */
+
+.book-cover-photo {
+  position: relative;
+}
+
+.book-cover-photo img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

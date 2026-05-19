@@ -45,6 +45,9 @@ db.exec(`
   );
 `);
 
+// Add cover_image column if not yet present (safe to call on existing DB)
+try { db.exec('ALTER TABLE seller_books ADD COLUMN cover_image TEXT DEFAULT NULL'); } catch {}
+
 // Prepared statements
 const stmts = {
   findUser:        db.prepare('SELECT * FROM users WHERE username = ?'),
@@ -54,7 +57,7 @@ const stmts = {
   insertPurchase:  db.prepare('INSERT INTO purchases (username, book_id) VALUES (?, ?)'),
   getAllUsers:      db.prepare('SELECT username, email, role, created_at FROM users ORDER BY created_at DESC'),
   countPurchases:  db.prepare('SELECT username, COUNT(*) as total FROM purchases GROUP BY username'),
-  insertBook:      db.prepare('INSERT INTO seller_books (seller, title, author, genre, price, pages, year, stock, cover, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'),
+  insertBook:      db.prepare('INSERT INTO seller_books (seller, title, author, genre, price, pages, year, stock, cover, description, cover_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'),
   getAllBooks:      db.prepare('SELECT * FROM seller_books ORDER BY created_at DESC'),
   countBookSales:  db.prepare('SELECT book_id, COUNT(*) as sales FROM purchases GROUP BY book_id'),
 };
@@ -63,7 +66,7 @@ const stmts = {
 // MIDDLEWARE
 // ============================================================
 
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 app.use(express.static(__dirname));
 
 // ============================================================
@@ -130,7 +133,7 @@ app.put('/api/password', (req, res) => {
 
 // POST /api/books  — seller adds a book
 app.post('/api/books', (req, res) => {
-  const { seller, title, author, genre, price, pages, year, stock, cover, description } = req.body;
+  const { seller, title, author, genre, price, pages, year, stock, cover, description, coverImage } = req.body;
 
   if (!seller || !title || !author || !genre || price == null) {
     return res.json({ success: false, error: 'Please fill in all required fields.' });
@@ -144,7 +147,8 @@ app.post('/api/books', (req, res) => {
     Number(year)  || new Date().getFullYear(),
     Number(stock) || 1,
     coverIdx,
-    description || ''
+    description || '',
+    coverImage || null
   );
 
   res.json({ success: true, bookId: result.lastInsertRowid });

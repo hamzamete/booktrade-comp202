@@ -50,3 +50,13 @@ Tarayıcıda aç: **http://localhost:3000**
 - Kitap satın alma ve kütüphane takibi
 - Şifre güncelleme
 - Veriler kalıcı — sayfa yenilenince veya tekrar giriş yapınca kaybolmaz
+- Çift dil desteği (TR / EN) — her sayfada toggle butonu, tercih tarayıcıda saklanır
+- Kapak fotoğrafı yükleme — satıcılar kitaba JPG/PNG/WebP kapak görseli ekleyebilir
+
+---
+
+## Teknik Notlar
+
+- JSON body limiti 10 MB — büyük kapak fotoğrafları base64 olarak gönderildiği için artırıldı
+- `cover_image` kolonu mevcut veritabanlarına otomatik eklenir (ALTER TABLE, migration gerekmez)
+- Dil tercihi `localStorage`'da `folyo_lang` anahtarıyla saklanır

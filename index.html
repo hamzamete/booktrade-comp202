@@ -9,93 +9,101 @@
 </head>
 <body>
 
-<!-- ============================================================
-     AUTH SCREEN
-     ============================================================ -->
+<!-- AUTH SCREEN -->
 <div id="auth-screen">
   <div class="auth-deco">F</div>
+  <button class="lang-toggle auth-lang-btn" id="auth-lang-btn" onclick="toggleLang()">
+    <span class="lang-opt" data-lang="en">EN</span>
+    <span class="lang-sep">/</span>
+    <span class="lang-opt" data-lang="tr">TR</span>
+  </button>
   <div class="auth-box">
     <div class="auth-logo">Folyo<span>.</span></div>
-    <div class="auth-tagline">Book Market</div>
+    <div class="auth-tagline" data-i18n="auth.tagline">Book Market</div>
 
     <div class="tab-row">
-      <button class="tab-btn active" onclick="switchTab('login')">Sign In</button>
-      <button class="tab-btn"        onclick="switchTab('register')">Register</button>
+      <button class="tab-btn active" onclick="switchTab('login')"    data-i18n="auth.signin">Sign In</button>
+      <button class="tab-btn"        onclick="switchTab('register')" data-i18n="auth.register">Register</button>
     </div>
 
     <!-- Login Form -->
     <div id="login-form" class="form-section active">
       <div class="field-group">
-        <label class="field-label">Username</label>
-        <input class="field-input" id="login-username" type="text" placeholder="your username">
+        <label class="field-label" data-i18n="auth.username">Username</label>
+        <input class="field-input" id="login-username" type="text"
+               data-i18n-placeholder="auth.username.placeholder" placeholder="your username">
       </div>
       <div class="field-group">
-        <label class="field-label">Password</label>
+        <label class="field-label" data-i18n="auth.password">Password</label>
         <input class="field-input" id="login-password" type="password" placeholder="••••••••">
       </div>
-      <button class="auth-btn" onclick="doLogin()">Sign In</button>
+      <button class="auth-btn" onclick="doLogin()" data-i18n="auth.signin">Sign In</button>
     </div>
 
     <!-- Register Form -->
     <div id="register-form" class="form-section">
       <div class="field-group">
-        <label class="field-label">Username</label>
-        <input class="field-input" id="reg-username" type="text" placeholder="choose a username">
+        <label class="field-label" data-i18n="auth.username">Username</label>
+        <input class="field-input" id="reg-username" type="text"
+               data-i18n-placeholder="auth.reg.username.placeholder" placeholder="choose a username">
       </div>
       <div class="field-group">
-        <label class="field-label">E-mail</label>
-        <input class="field-input" id="reg-email" type="email" placeholder="example@email.com">
+        <label class="field-label" data-i18n="auth.email">E-mail</label>
+        <input class="field-input" id="reg-email" type="email"
+               data-i18n-placeholder="auth.email.placeholder" placeholder="example@email.com">
       </div>
       <div class="field-group">
-        <label class="field-label">Password</label>
+        <label class="field-label" data-i18n="auth.password">Password</label>
         <input class="field-input" id="reg-password" type="password" placeholder="••••••••">
       </div>
       <div class="field-group">
-        <label class="field-label">Account Type</label>
+        <label class="field-label" data-i18n="auth.accountType">Account Type</label>
         <div class="user-type-row">
           <button class="type-card selected" id="type-buyer"  onclick="selectType('buyer')">
             <span class="type-icon">📚</span>
-            <span class="type-label">Buyer</span>
-            <div class="type-desc">Buy books</div>
+            <span class="type-label" data-i18n="auth.buyer">Buyer</span>
+            <div class="type-desc"   data-i18n="auth.buyer.desc">Buy books</div>
           </button>
           <button class="type-card"          id="type-seller" onclick="selectType('seller')">
             <span class="type-icon">🏪</span>
-            <span class="type-label">Seller</span>
-            <div class="type-desc">Sell books</div>
+            <span class="type-label" data-i18n="auth.seller">Seller</span>
+            <div class="type-desc"   data-i18n="auth.seller.desc">Sell books</div>
           </button>
         </div>
       </div>
-      <button class="auth-btn" onclick="doRegister()">Create Account</button>
+      <button class="auth-btn" onclick="doRegister()" data-i18n="auth.createAccount">Create Account</button>
     </div>
   </div>
 </div>
 
-<!-- ============================================================
-     APP
-     ============================================================ -->
+<!-- APP -->
 <div id="app">
   <div class="app-layout">
 
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-logo">Folyo<span>.</span></div>
-      <div class="sidebar-tagline">Book Market</div>
+      <div class="sidebar-tagline" data-i18n="sidebar.tagline">Book Market</div>
 
       <div class="user-block">
         <div class="user-name" id="sidebar-username">—</div>
         <div class="user-role" id="sidebar-role">Buyer</div>
       </div>
 
-      <div class="nav-section-label">Navigate</div>
-      <button class="nav-item active" id="nav-home"      onclick="showScreen('home')">      <span class="nav-icon">🏠</span> Home</button>
-      <button class="nav-item"        id="nav-search"    onclick="showScreen('search')">    <span class="nav-icon">🔍</span> Search Books</button>
-      <button class="nav-item"        id="nav-purchased" onclick="showScreen('purchased')"> <span class="nav-icon">📦</span> My Purchases</button>
-      <!-- Seller only -->
-      <button class="nav-item seller-only" id="nav-addbook" onclick="showScreen('addbook')"><span class="nav-icon">➕</span> Add Book</button>
-      <button class="nav-item"        id="nav-password"  onclick="showScreen('password')">  <span class="nav-icon">🔑</span> Update Password</button>
+      <div class="nav-section-label" data-i18n="sidebar.navigate">Navigate</div>
+      <button class="nav-item active" id="nav-home"      onclick="showScreen('home')">      <span class="nav-icon">🏠</span> <span data-i18n="nav.home">Home</span></button>
+      <button class="nav-item"        id="nav-search"    onclick="showScreen('search')">    <span class="nav-icon">🔍</span> <span data-i18n="nav.search">Search Books</span></button>
+      <button class="nav-item"        id="nav-purchased" onclick="showScreen('purchased')"> <span class="nav-icon">📦</span> <span data-i18n="nav.purchased">My Purchases</span></button>
+      <button class="nav-item seller-only" id="nav-addbook" onclick="showScreen('addbook')"><span class="nav-icon">➕</span> <span data-i18n="nav.addbook">Add Book</span></button>
+      <button class="nav-item"        id="nav-password"  onclick="showScreen('password')">  <span class="nav-icon">🔑</span> <span data-i18n="nav.password">Update Password</span></button>
 
       <div class="sidebar-footer">
-        <button class="logout-btn" onclick="doLogout()">↩ Log Out</button>
+        <button class="lang-toggle sidebar-lang-btn" id="sidebar-lang-btn" onclick="toggleLang()">
+          <span class="lang-opt" data-lang="en">EN</span>
+          <span class="lang-sep">/</span>
+          <span class="lang-opt" data-lang="tr">TR</span>
+        </button>
+        <button class="logout-btn" onclick="doLogout()" data-i18n="sidebar.logout">↩ Log Out</button>
       </div>
     </aside>
 
@@ -106,21 +114,15 @@
       <div id="screen-home" class="screen active">
         <div class="content-header">
           <div>
-            <div class="page-title">Featured Books</div>
-            <div class="page-subtitle">Click on a book to see details and purchase options</div>
+            <div class="page-title"    data-i18n="home.title">Featured Books</div>
+            <div class="page-subtitle" data-i18n="home.subtitle">Click on a book to see details and purchase options</div>
           </div>
         </div>
-
-        <!-- Recommended Section -->
-        <div class="section-label">⭐ Recommended for You</div>
+        <div class="section-label" data-i18n="home.recommended">⭐ Recommended for You</div>
         <div class="books-grid" id="recommended-grid"></div>
-
-        <!-- Best Sellers Section -->
-        <div class="section-label" style="margin-top:36px">🔥 Best Sellers</div>
+        <div class="section-label" style="margin-top:36px" data-i18n="home.bestsellers">🔥 Best Sellers</div>
         <div class="books-grid" id="bestseller-grid"></div>
-
-        <!-- All Books -->
-        <div class="section-label" style="margin-top:36px">📚 All Books</div>
+        <div class="section-label" style="margin-top:36px" data-i18n="home.allbooks">📚 All Books</div>
         <div class="books-grid" id="home-books-grid"></div>
       </div>
 
@@ -128,22 +130,22 @@
       <div id="screen-search" class="screen">
         <div class="content-header">
           <div>
-            <div class="page-title">Search Books</div>
-            <div class="page-subtitle">Filter by author, genre or price</div>
+            <div class="page-title"    data-i18n="search.title">Search Books</div>
+            <div class="page-subtitle" data-i18n="search.subtitle">Filter by author, genre or price</div>
           </div>
         </div>
         <div class="search-filters">
           <div class="filters-grid">
             <div>
-              <label class="filter-label">Author</label>
+              <label class="filter-label" data-i18n="search.author">Author</label>
               <select class="search-select" id="search-author" onchange="doSearch()">
-                <option value="">All Authors</option>
+                <option value="" data-i18n="search.allAuthors">All Authors</option>
               </select>
             </div>
             <div>
-              <label class="filter-label">Genre</label>
+              <label class="filter-label" data-i18n="search.genre">Genre</label>
               <select class="search-select" id="search-genre" onchange="doSearch()">
-                <option value="">All Genres</option>
+                <option value="" data-i18n="search.allGenres">All Genres</option>
                 <option>Fiction</option>
                 <option>Sci-Fi</option>
                 <option>History</option>
@@ -156,7 +158,7 @@
           </div>
           <div class="filters-grid">
             <div>
-              <label class="filter-label">Price Range (₺)</label>
+              <label class="filter-label" data-i18n="search.priceRange">Price Range (₺)</label>
               <div class="price-range-row">
                 <input class="price-input" id="search-min-price" type="number" placeholder="Min" min="0" oninput="doSearch()">
                 <span class="price-sep">—</span>
@@ -164,15 +166,15 @@
               </div>
             </div>
             <div>
-              <label class="filter-label">Sort By Price</label>
+              <label class="filter-label" data-i18n="search.sortBy">Sort By Price</label>
               <select class="search-select" id="search-sort" onchange="doSearch()">
-                <option value="">Default</option>
-                <option value="asc">Price: Low to High ↑</option>
-                <option value="desc">Price: High to Low ↓</option>
+                <option value=""     data-i18n="search.default">Default</option>
+                <option value="asc"  data-i18n="search.lowToHigh">Price: Low to High ↑</option>
+                <option value="desc" data-i18n="search.highToLow">Price: High to Low ↓</option>
               </select>
             </div>
           </div>
-          <button class="search-btn" onclick="doSearch()">Filter</button>
+          <button class="search-btn" onclick="doSearch()" data-i18n="search.filter">Filter</button>
         </div>
         <div class="results-count" id="results-count"></div>
         <div class="books-grid" id="search-books-grid"></div>
@@ -182,8 +184,8 @@
       <div id="screen-purchased" class="screen">
         <div class="content-header">
           <div>
-            <div class="page-title">My Purchases</div>
-            <div class="page-subtitle">Your Library</div>
+            <div class="page-title"    data-i18n="purchases.title">My Purchases</div>
+            <div class="page-subtitle" data-i18n="purchases.subtitle">Your Library</div>
           </div>
         </div>
         <div id="purchased-list-wrap"></div>
@@ -193,25 +195,27 @@
       <div id="screen-addbook" class="screen">
         <div class="content-header">
           <div>
-            <div class="page-title">Add a Book</div>
-            <div class="page-subtitle">List a new book for sale</div>
+            <div class="page-title"    data-i18n="addbook.title">Add a Book</div>
+            <div class="page-subtitle" data-i18n="addbook.subtitle">List a new book for sale</div>
           </div>
         </div>
         <div class="settings-card" style="max-width:560px">
-          <h3>Book Details</h3>
+          <h3 data-i18n="addbook.details">Book Details</h3>
           <div class="filters-grid">
             <div class="field-group">
-              <label class="field-label">Title *</label>
-              <input class="field-input" id="add-title" type="text" placeholder="Book title">
+              <label class="field-label" data-i18n="addbook.bookTitle">Title *</label>
+              <input class="field-input" id="add-title" type="text"
+                     data-i18n-placeholder="addbook.title.placeholder" placeholder="Book title">
             </div>
             <div class="field-group">
-              <label class="field-label">Author *</label>
-              <input class="field-input" id="add-author" type="text" placeholder="Author name">
+              <label class="field-label" data-i18n="addbook.author">Author *</label>
+              <input class="field-input" id="add-author" type="text"
+                     data-i18n-placeholder="addbook.author.placeholder" placeholder="Author name">
             </div>
           </div>
           <div class="filters-grid">
             <div class="field-group">
-              <label class="field-label">Genre *</label>
+              <label class="field-label" data-i18n="addbook.genre">Genre *</label>
               <select class="search-select" id="add-genre" style="background:var(--cream)">
                 <option>Fiction</option>
                 <option>Sci-Fi</option>
@@ -224,29 +228,49 @@
               </select>
             </div>
             <div class="field-group">
-              <label class="field-label">Price (₺) *</label>
-              <input class="field-input" id="add-price" type="number" placeholder="e.g. 120" min="1">
+              <label class="field-label" data-i18n="addbook.price">Price (₺) *</label>
+              <input class="field-input" id="add-price" type="number"
+                     data-i18n-placeholder="addbook.price.placeholder" placeholder="e.g. 120" min="1">
             </div>
           </div>
           <div class="filters-grid">
             <div class="field-group">
-              <label class="field-label">Number of Pages</label>
-              <input class="field-input" id="add-pages" type="number" placeholder="e.g. 320" min="1">
+              <label class="field-label" data-i18n="addbook.pages">Number of Pages</label>
+              <input class="field-input" id="add-pages" type="number"
+                     data-i18n-placeholder="addbook.pages.placeholder" placeholder="e.g. 320" min="1">
             </div>
             <div class="field-group">
-              <label class="field-label">Publication Year</label>
-              <input class="field-input" id="add-year" type="number" placeholder="e.g. 2023" min="1000" max="2099">
+              <label class="field-label" data-i18n="addbook.year">Publication Year</label>
+              <input class="field-input" id="add-year" type="number"
+                     data-i18n-placeholder="addbook.year.placeholder" placeholder="e.g. 2023" min="1000" max="2099">
             </div>
           </div>
           <div class="field-group">
-            <label class="field-label">Stock Quantity</label>
-            <input class="field-input" id="add-stock" type="number" placeholder="e.g. 10" min="1">
+            <label class="field-label" data-i18n="addbook.stock">Stock Quantity</label>
+            <input class="field-input" id="add-stock" type="number"
+                   data-i18n-placeholder="addbook.stock.placeholder" placeholder="e.g. 10" min="1">
           </div>
           <div class="field-group">
-            <label class="field-label">Description</label>
-            <textarea class="field-input" id="add-desc" rows="3" placeholder="Short description of the book..." style="resize:vertical"></textarea>
+            <label class="field-label" data-i18n="addbook.desc">Description</label>
+            <textarea class="field-input" id="add-desc" rows="3"
+                      data-i18n-placeholder="addbook.desc.placeholder"
+                      placeholder="Short description of the book..." style="resize:vertical"></textarea>
           </div>
-          <button class="save-btn" onclick="addBook()">📚 List Book for Sale</button>
+          <!-- Cover Image Upload -->
+          <div class="field-group">
+            <label class="field-label" data-i18n="addbook.coverImage">Cover Image</label>
+            <div class="cover-upload-area" id="cover-upload-area"
+                 onclick="document.getElementById('add-cover-img').click()">
+              <div id="cover-upload-placeholder">
+                <span class="cover-upload-icon">📷</span>
+                <span class="cover-upload-hint" data-i18n="addbook.coverHint">Optional. Accepts JPG, PNG, WebP.</span>
+              </div>
+              <img id="cover-preview-img" style="display:none" alt="Cover preview">
+            </div>
+            <input type="file" id="add-cover-img" accept="image/*" style="display:none"
+                   onchange="previewCover(event)">
+          </div>
+          <button class="save-btn" onclick="addBook()" data-i18n="addbook.submit">📚 List Book for Sale</button>
         </div>
       </div>
 
@@ -254,25 +278,25 @@
       <div id="screen-password" class="screen">
         <div class="content-header">
           <div>
-            <div class="page-title">Update Password</div>
-            <div class="page-subtitle">Account security</div>
+            <div class="page-title"    data-i18n="password.title">Update Password</div>
+            <div class="page-subtitle" data-i18n="password.subtitle">Account security</div>
           </div>
         </div>
         <div class="settings-card">
-          <h3>Set New Password</h3>
+          <h3 data-i18n="password.setNew">Set New Password</h3>
           <div class="field-group">
-            <label class="field-label">Current Password</label>
+            <label class="field-label" data-i18n="password.current">Current Password</label>
             <input class="field-input" id="cur-pass" type="password" placeholder="••••••••">
           </div>
           <div class="field-group">
-            <label class="field-label">New Password</label>
+            <label class="field-label" data-i18n="password.new">New Password</label>
             <input class="field-input" id="new-pass" type="password" placeholder="••••••••">
           </div>
           <div class="field-group">
-            <label class="field-label">New Password (Confirm)</label>
+            <label class="field-label" data-i18n="password.confirm">New Password (Confirm)</label>
             <input class="field-input" id="new-pass2" type="password" placeholder="••••••••">
           </div>
-          <button class="save-btn" onclick="updatePassword()">Update Password</button>
+          <button class="save-btn" onclick="updatePassword()" data-i18n="password.submit">Update Password</button>
         </div>
       </div>
 
@@ -280,9 +304,7 @@
   </div>
 </div>
 
-<!-- ============================================================
-     BOOK DETAIL MODAL
-     ============================================================ -->
+<!-- BOOK DETAIL MODAL -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModalOnBg(event)">
   <div class="modal">
     <div class="modal-body">
@@ -298,17 +320,17 @@
         <div class="modal-title"      id="modal-title"></div>
         <div class="modal-author-line" id="modal-author"></div>
         <div class="modal-stats">
-          <div><div class="modal-stat-value" id="modal-pages"></div><div class="modal-stat-label">Pages</div></div>
-          <div><div class="modal-stat-value" id="modal-year"></div> <div class="modal-stat-label">Published</div></div>
-          <div><div class="modal-stat-value" id="modal-stock"></div><div class="modal-stat-label">In Stock</div></div>
+          <div><div class="modal-stat-value" id="modal-pages"></div><div class="modal-stat-label" data-i18n="modal.pages">Pages</div></div>
+          <div><div class="modal-stat-value" id="modal-year"></div> <div class="modal-stat-label" data-i18n="modal.published">Published</div></div>
+          <div><div class="modal-stat-value" id="modal-stock"></div><div class="modal-stat-label" data-i18n="modal.inStock">In Stock</div></div>
         </div>
         <div class="modal-desc" id="modal-desc"></div>
       </div>
     </div>
     <div class="modal-footer">
       <div class="modal-price-big" id="modal-price"></div>
-      <button class="modal-close-btn"                            onclick="closeModal()">Close</button>
-      <button class="modal-buy-btn" id="modal-buy-btn"           onclick="buyFromModal()">Buy Now</button>
+      <button class="modal-close-btn" onclick="closeModal()" data-i18n="modal.close">Close</button>
+      <button class="modal-buy-btn"   id="modal-buy-btn"     onclick="buyFromModal()">Buy Now</button>
     </div>
   </div>
 </div>
